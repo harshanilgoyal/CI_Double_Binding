@@ -30,7 +30,7 @@ if (array_key_exists('submit', $_POST)) {
             echo " <script type='text/javascript'> alert('Please Check Your Username/Password'); </script>";
         }}
 }
-
+?>
 
 <!DOCTYPE html>
 <html>
