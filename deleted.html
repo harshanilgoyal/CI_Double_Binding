@@ -1,0 +1,24 @@
+
+    <div class="form-group row">
+            <label for="inputsubsidy" class="col-sm-2 col-form-label">Subsidy Per KW</label>
+            <div class="col-sm-2">
+              <input type="number" min="0" step="1000" class="form-control" required name="subsidy" id="inputsubsidy" placeholder="Rs.">
+            </div>
+          </div>
+      
+         
+      
+          <div class="form-group row">
+        <label for="inputinverters" class="col-sm-2 col-form-label">Inverters</label>
+          <div class="col-sm-3">
+          <select class="form-control" id="inputinverters" name="inverter">
+            <?php
+            while ($inverter=mysqli_fetch_array($resultinverters)) {
+              ?>
+          <option>
+              <?php echo $inverter['Name'] ?>
+          </option>
+        <?php } ?>
+      
+          </select></div></div>
+      
