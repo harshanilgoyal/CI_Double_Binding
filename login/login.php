@@ -12,10 +12,10 @@ if (array_key_exists("logout", $_GET)) {
     setcookie("des", "", time() - 60 * 60);
     $_COOKIE["des"] = "";
     session_destroy();
-    header("Location: login.php");
+    header("Location:./login.php");
 } else if ((array_key_exists("id", $_SESSION) and $_SESSION['id']) or (array_key_exists("id", $_COOKIE) and $_COOKIE['id'])) {
 
-    header("Location: main.php");
+    header("Location:../main.php");
 
 }
 
@@ -85,13 +85,5 @@ if (array_key_exists('submit', $_POST)) {
 	</div>
 </div>
 </body>
-
-  <footer class="footer-basic-centered">
-    <p class="footer-company-motto">To produce and market the planned quantity of coal and coal products efficiently and economically in an eco-friendly
-		manner</p>
-    <p class="footer-company-name">Web App Developed By TechnoCrats_77 </p>
-    
-  </footer>
-
 
 </html>

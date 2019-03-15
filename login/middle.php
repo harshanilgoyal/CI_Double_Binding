@@ -3,12 +3,10 @@
 session_start();
 
 if (array_key_exists("id", $_COOKIE)) {
-   $_SESSION['id'] = $_COOKIE['id'];
-   
-   $_SESSION['username'] = $_COOKIE['username'];
-$_SESSION['name'] = $_COOKIE['name'];
-$_SESSION['des'] = $_COOKIE['des'];
-
+    $_SESSION['id'] = $_COOKIE['id'];
+    $_SESSION['username'] = $_COOKIE['username'];
+    $_SESSION['name'] = $_COOKIE['name'];
+    $_SESSION['des'] = $_COOKIE['des'];
 }
 
 if (array_key_exists("id", $_SESSION)) {
@@ -17,8 +15,6 @@ if (array_key_exists("id", $_SESSION)) {
 else {
     header("Location:login.php");
 }
-
-
-    
+ 
 ?>
 
