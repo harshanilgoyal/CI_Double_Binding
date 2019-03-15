@@ -36,12 +36,12 @@ if (array_key_exists('submit', $_POST)) {
 <html>
 <head>
   <?php
-  include ('links.php');
+  include ('../libraries/links.php');
   ?>
   <title>Welcome To Coal India</title>
   
 	
-	<link rel="stylesheet" type="text/css" href="login.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
   <div class="topbar" >
