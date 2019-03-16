@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Parsehub' => array($vendorDir . '/msankhala/parsehub-php/src'),
+    'Httpful' => array($vendorDir . '/nategood/httpful/src'),
 );

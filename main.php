@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Parsehub\Parsehub;
+error_reporting(0);
 
 if (array_key_exists("id", $_COOKIE)) {
     $_SESSION['id'] = $_COOKIE['id'];
@@ -14,8 +18,30 @@ if (array_key_exists("id", $_COOKIE)) {
      header("Location:./login/login.php");
  }
  
-?>
+$api_key ="toXciEro7DVG";
+$api_url = 'https://www.parsehub.com/api/v2';
+$log_path = 'C:\\wamp64\parsehub.log';
+$parsehub = new Parsehub($api_key, $api_url, $log_path);
 
+//$data = $parsehub->getLastReadyRunData("tHJAUbkAxKL0");
+//print $data;
+
+$options = array(
+    // Set send_email options. Skip to remain this value default.
+  //  'send_email' => 1,
+);
+//$project_token ="tHJAUbkAxKL0";
+$data = $parsehub->getLastReadyRunData("tHJAUbkAxKL0");
+
+$run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
+
+
+//print $data;
+
+?>
+<script>
+    console.log(<?= json_encode($data); ?>);
+</script>
 
 <!DOCTYPE html>
 <html>
@@ -25,25 +51,26 @@ if (array_key_exists("id", $_COOKIE)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>Coal India</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="././css/font-awesome/css/font-awesome.min.css">
-    
+
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="style2.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Font Awesome JS -->
-    
-   
      <link href="css/lightbox.min.css" rel="stylesheet">
     <link href="css/lity.min.css" rel="stylesheet">
-     <link href="css/new-style.css" rel="stylesheet">
-     
+    <link href="css/new-style.css" rel="stylesheet">
+    
+    <!-- Main File-->
+    
+    <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/solid.js" integrity="sha384-6FXzJ8R8IC4v/SKPI8oOcRrUkJU8uvFK6YJ4eDY11bJQz4lRw5/wGthflEOX8hjL" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/fontawesome.js" integrity="sha384-xl26xwG2NVtJDw2/96Lmg09++ZjrXPc89j0j7JHjLOdSwHDHPHiucUjfllW0Ywrq" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
@@ -52,7 +79,7 @@ if (array_key_exists("id", $_COOKIE)) {
         <!-- Sidebar  -->
         <nav id="sidebar" style="text-align:center">
             <div class="sidebar-header">
-                 <h2 class="h5"><i class="fa fa-user-o" aria-hidden="true"></i>  <?php echo $_SESSION['name']?></h2><span><?php echo $_SESSION['des'] ?></span>
+                 <h2 class="h5"><i class="fas fa-user-tie"></i> <?php echo $_SESSION['name']?></h2><span><?php echo $_SESSION['des'] ?></span>
             </div>
 
             <ul class="list-unstyled components">
@@ -75,7 +102,7 @@ if (array_key_exists("id", $_COOKIE)) {
                 </li>
 
                 <li>
-                    <a href="login/login.php?logout=1"> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    <a href="login/login.php?logout=1"> <i class="fas fa-sign-out-alt"></i> Logout</a>
                 </li>
             </ul>
 
@@ -101,11 +128,86 @@ if (array_key_exists("id", $_COOKIE)) {
             </nav>
         <!-- Page Content  -->
         <div id="content">
-<div style="height:120px;background:orange">
-</div>
-<div style="height:60px;background:black">
-</div>
-  <div style="margin-bottom:0px;height:50px;padding:10px;" align=center >
+
+  <!-- Counts Section -->
+      <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="fa fa-tasks" aria-hidden="true"></i></div>
+                <div class="name"><strong class="text-uppercase">Total Encryptions</strong>
+                  <div class="count-number" align=center style="color:#93716b">25</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="fa fa-database" aria-hidden="true" ></i></div>
+                <div class="name"><strong class="text-uppercase">Total Decryptions</strong>
+                  <div class="count-number" align=center style="color:#93716b">400</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="fa fa-check-circle" aria-hidden="true"></i></div>
+                <div class="name"><strong class="text-uppercase">No Of Good Grade Coal</strong>
+                  <div class="count-number" align=center style="color:#93716b">342</div>
+                </div>
+              </div>
+            </div>
+            <!-- Count item widget-->
+            <div class="col-xl-3 col-md-4 col-6">
+              <div class="wrapper count-title d-flex">
+                <div class="icon"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
+                <div class="name"><strong class="text-uppercase">No Of Bad Grade Coal</strong>
+                  <div class="count-number" align=center style="color:#93716b">123</div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+
+
+<section class="statistics" >
+        <div class="container-fluid " style="margin-top:30px">
+          <div class="row d-flex">
+            <div class="col-lg-4">
+              <!-- Income-->
+              <div class="card income text-center">
+                <div class="icon"><i class="fas fa-rupee-sign"></i></div>
+                <div class="number" id="Profit">126,418</div><strong class="text-primary">Yearly Profit</strong>
+                <p>Source:economictimes.indiatimes.com</p>
+              </div>
+            </div>
+          <div class="col-lg-4">
+              <!-- Income-->
+              <div class="card income text-center">
+                <div class="icon"><i class="fas fa-chart-line"></i></div>
+                <div class="number" id="stock"></div><strong class="text-primary">Current Stock Price</strong>
+                <p>Source:economictimes.indiatimes.com</p>
+              </div>
+            </div>
+             <div class="col-lg-4">
+              <!-- Income-->
+              <div class="card income text-center">
+                <div class="icon"><i class="fas fa-sign-in-alt"></i></div>
+                <div class="number" id="visits"></div><strong class="text-primary">Your Total Visits</strong>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+  <div style="margin-bottom:0px;height:50px;padding:30px;" align=center >
          <h3 class="heading-large">Recent Coal News</h3> 
   </div>    
 
@@ -200,10 +302,11 @@ if (array_key_exists("id", $_COOKIE)) {
         </div>
       </div>
     </div>
+       
   </section>
-
+  
          </div>
-
+ 
     
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -229,9 +332,10 @@ if (array_key_exists("id", $_COOKIE)) {
                       
         var url = 'https://gnews.io/api/v2/?q=Coal India&max=7&lang=en&country=in&token=bfea91df8f016d4addd9d15a1098cc8c';
         var req = new Request(url);
-
         fetch(req)
             .then(function(response) {
+               
+
             var output=Promise.resolve(response.json());
             output.then(function(value) {
                 console.log(value['articles']);
@@ -279,11 +383,18 @@ if (array_key_exists("id", $_COOKIE)) {
                  $('#news6_time').text(value['articles'][5]['date']);
                   $('#news7_time').text(value['articles'][6]['date']); 
 
+                 var profit=<?=$data?>;
+            //alert(profit["profit"]);
+       $('#Profit').text(profit["profit"].replace("Rs","").replace("Cr",""));
+       $('#stock').text(profit["stock"]);
+         
 
                  });
             })
 
            
+
+
 
         });
 
