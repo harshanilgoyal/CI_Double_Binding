@@ -1,5 +1,7 @@
 {
     "require": {
-        "msankhala/parsehub-php": "^2.0"
+        "msankhala/parsehub-php": "^2.0",
+        "endroid/qrcode": "^3.5",
+        "endroid/qr-code": "^3.5"
     }
 }

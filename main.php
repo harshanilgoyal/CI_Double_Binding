@@ -86,11 +86,11 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                 <p>MAIN MENU</p>
                 <li class="active">
                                               
-<a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+<a href="main.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
                        
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-tasks" aria-hidden="true"></i> Encrypt</a>
+                    <a href="encrypt.php"><i class="fa fa-tasks" aria-hidden="true"></i> Encrypt</a>
                 </li>
                 
                 <li>
@@ -183,7 +183,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
               <!-- Income-->
               <div class="card income text-center">
                 <div class="icon"><i class="fas fa-rupee-sign"></i></div>
-                <div class="number" id="Profit">126,418</div><strong class="text-primary">Yearly Profit</strong>
+                <div class="number" id="Profit"></div><strong class="text-primary">Yearly Profit</strong>
                 <p>Source:economictimes.indiatimes.com</p>
               </div>
             </div>
@@ -224,6 +224,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                 <h2 class=" title-small" ><a href="#" target="_blank" id="news1_link" ><span id="news1_tittle"></span></a></h2>
               </div>
               <p class="card-text"><small class="text-time" id="news1_time"><em></em></small></p>
+              <p><small id="news1_src"></small> </p>
             </div>
           </div>
           <div class="card mb-4"> <img class="img-fluid"  id="news2_img" src="img/news/2.jpg" alt="">
@@ -233,6 +234,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                 <h2 class=" title-small" ><a href="#" target="_blank" id="news2_link"><span id="news2_tittle"></span></a></h2>
               </div>
               <p class="card-text"><small class="text-time" id="news2_time"><em></em></small></p>
+              <p><small id="news2_src"></small> </p>
+            
             </div>
           </div>  
         </div>
@@ -244,6 +247,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                 <h2 class=" title-small" ><a href="#" target="_blank" id="news3_link"><span id="news3_tittle"></span></a></h2>
               </div>
               <p class="card-text"><small class="text-time" id="news3_time"><em></em></small></p>
+              <p><small id="news3_src"></small> </p>
+            
             </div>
           </div>
           <div class="card"> <img class="img-fluid"  id="news4_img" src="img/news/4.jpg" alt="">
@@ -253,6 +258,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                 <h2 class=" title-small" ><a href="#" target="_blank" id="news4_link"></a><span id="news4_tittle"></span></h2>
               </div>
               <p class="card-text"><small class="text-time" id="news4_time"><em></em></small></p>
+              <p><small id="news4_src"></small> </p>
+            
             </div>
           </div>
         </div>
@@ -275,6 +282,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                   </div>
                   <div class="news-des" id="news5_desc"></div>
                   <div class="time-text" id="news5_time"><strong></strong></div>
+                  <p><small id="news5_src"></small> </p>
+            
                 </div>
               </div>
               <div class="carousel-item">
@@ -285,6 +294,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                   </div>
                   <div class="news-des" id="news6_desc"></div>
                   <div class="time-text" id="news6_time"><strong></strong></div>
+                  <p><small id="news6_src"></small> </p>
+            
                 </div>
               </div>
               <div class="carousel-item">
@@ -295,6 +306,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                   </div>
                   <div class="news-des" id="news7_desc"></div>
                   <div class="time-text" id="news7_time"><strong></strong></div>
+                  <p><small id="news7_src"></small> </p>
+            
                 </div>
               </div>
             </div>
@@ -383,9 +396,17 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                  $('#news6_time').text(value['articles'][5]['date']);
                   $('#news7_time').text(value['articles'][6]['date']); 
 
+                 $('#news1_src').text(value['articles'][0]['source']);
+             $('#news2_src').text(value['articles'][1]['source']);
+              $('#news3_src').text(value['articles'][2]['source']);
+               $('#news4_src').text(value['articles'][3]['source']);
+                $('#news5_src').text(value['articles'][4]['source']);
+                 $('#news6_src').text(value['articles'][5]['source']);
+                  $('#news7_src').text(value['articles'][6]['source']); 
+
                  var profit=<?=$data?>;
             //alert(profit["profit"]);
-       $('#Profit').text(profit["profit"].replace("Rs","").replace("Cr",""));
+       $('#Profit').text(profit["profit"].replace("Rs",""));
        $('#stock').text(profit["stock"]);
          
 
