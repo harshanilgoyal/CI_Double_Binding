@@ -94,11 +94,11 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
                 </li>
                 
                 <li>
-                    <a href="#"><i class="fa fa-database" aria-hidden="true"></i> Decrypt</a>
+                    <a href="decrypt.php"><i class="fa fa-database" aria-hidden="true"></i> Decrypt</a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> View Previous</a>
+                    <a href="viewprevious.php"><i class="fa fa-eye" aria-hidden="true"></i> View Previous</a>
                 </li>
 
                 <li>

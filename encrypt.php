@@ -73,11 +73,11 @@ $sampleno=$row[0]+1;
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-database" aria-hidden="true"></i> Decrypt</a>
+                    <a href="decrypt.php"><i class="fa fa-database" aria-hidden="true"></i> Decrypt</a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> View Previous</a>
+                    <a href="viewprevious.php"><i class="fa fa-eye" aria-hidden="true"></i> View Previous</a>
                 </li>
 
                 <li>
@@ -277,6 +277,10 @@ $sampleno=$row[0]+1;
 
         function change(){
            // alert($("#batch").text());
+                $("#batch").val($("#batch").val().toUpperCase());
+                $("#place").val($("#place").val().toUpperCase());
+                $("#type").val($("#type").val().toUpperCase());
+                $("#agency").val($("#agency").val().toUpperCase());
                 $("#modal_batch").text($("#batch").val());
                 $("#modal_place").text($("#place").val());
                 $("#modal_type").text($("#type").val());

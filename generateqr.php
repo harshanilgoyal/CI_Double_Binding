@@ -16,33 +16,53 @@ if (array_key_exists("id", $_SESSION)) {
     $type=$_POST['type'];
     $agency=$_POST['agency'];
     $sampleno = $_POST['sampleno'];
-
+    
 } else {
     header("Location:./login/login.php");
 }
 
 set_include_path('./vendor/rsa');
-include './vendor/rsa/Crypt/RSA.php';
+include 'Crypt/RSA.php';
+include 'Crypt/AES.php';
+include 'Crypt/Random.php';
 
 $rsa = new Crypt_RSA();
 
 extract($rsa->createKey());
 $private = $privatekey;
 $public = $publickey;
-$keyvalue="absqwewqhlkxzcnbbmcxzghjdas";
-$query="INSERT INTO encrypt (privatekey) values (AES_ENCRYPT('$private','$keyvalue'))";
-if (mysqli_query($link, $query)) {
-    //echo "New record created successfully";
-} else {
-    //echo "Error: " . $query . "<br>" . mysqli_error($link);
-}
 $rsa->loadKey($public); // public key
 $plaintext =$batch.";".$place.";".$type.";".$agency.";";
+//$rsa->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
 $ciphertext = $rsa->encrypt($plaintext);
-$finalciphertext=$sampleno.":;,;;;".$ciphertext ;
+$cipher1 = new Crypt_AES();
+$cipher1->setKey('abcdefghijklmnop');
+//$cipher1->setIV(crypt_random_string($cipher1->getBlockLength() >> 3));
+$samplenocipher=$cipher1->encrypt($sampleno);
+//$str=base64_encode($samplenocipher);
+//$samplenocipher1=base64_decode($str);
+//echo $cipher1->decrypt($samplenocipher1);
+//echo $samplenocipher;
+$samplebase64=base64_encode($samplenocipher);
+//echo $ciphertext;
 
-
+$detailsbase64=base64_encode($ciphertext);
+echo $detailsbase64;
+$finalciphertext=$samplebase64.":;,HARSH;;;".$detailsbase64;
+//echo $finalciphertext;
 //include './generatorqr.html';
+
+$privatecipher = $cipher1->encrypt($private);
+$privatebase64=base64_encode($privatecipher);
+
+$query = "INSERT INTO encrypt (id,privatekey) values ('$sampleno','$privatebase64')";
+if (mysqli_query($link, $query)) {
+    echo "New record created successfully";
+} else {
+   echo "Error: " . $query . "<br>" . mysqli_error($link);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -103,11 +123,11 @@ $finalciphertext=$sampleno.":;,;;;".$ciphertext ;
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-database" aria-hidden="true"></i> Decrypt</a>
+                    <a href="decrypt.php"><i class="fa fa-database" aria-hidden="true"></i> Decrypt</a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-eye" aria-hidden="true"></i> View Previous</a>
+                    <a href="viewprevious.php"><i class="fa fa-eye" aria-hidden="true"></i> View Previous</a>
                 </li>
 
                 <li>
