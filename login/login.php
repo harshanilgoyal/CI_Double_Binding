@@ -1,3 +1,9 @@
+<head>
+
+ <script src="../pace/pace.js"></script>
+  <link href="../pace/themes/pace-theme-barber-shop.css" rel="stylesheet" />
+
+</head>
 <?php
 session_start();
 require 'validation.php';
@@ -35,13 +41,15 @@ if (array_key_exists('submit', $_POST)) {
 <!DOCTYPE html>
 <html>
 <head>
-  <?php
+ 
+<?php
   include ('../libraries/links.php');
   ?>
   <title>Welcome To Coal India</title>
   
-	
-	<link rel="stylesheet" type="text/css" href="css/login.css">
+
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    
 </head>
 <body>
   <div class="topbar" >
@@ -87,3 +95,8 @@ if (array_key_exists('submit', $_POST)) {
 </body>
 
 </html>
+
+<script>
+//document . documentElement . webkitRequestFullScreen();
+
+</script>

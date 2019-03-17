@@ -1,3 +1,8 @@
+
+  <head>
+  <script src="/pace/pace.js"></script>
+  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
+  </head>
 <?php
 session_start();
 include './databaseconnection/dbconfig.php';
@@ -236,7 +241,7 @@ if (array_key_exists("id", $_SESSION)) {
                          </div>
 
          <div class="form-group row">
-            <button  style="border:10px;border-color:black;border-radius:5px;position:relative;left:14%;"  id="save" type="button" class="btn btn-warning btn-lg" >Save & Print</button>
+            <button  style="border:10px;border-color:black;border-radius:5px;position:relative;left:14%;"  id="save" type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false" >Save</button>
         </div>
                 </div>
  </form>
@@ -251,7 +256,25 @@ if (array_key_exists("id", $_SESSION)) {
 
 </section>
 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" >
+        
+        <h4 class="modal-title">Cipher Decrypted Successfully</h4>
+      </div>
+      <div class="modal-body" >
+        <p>Data Saved. Your Page Will Be Refreshed Automatically</p>
+      </div>
+      <div class="modal-footer">
+         </div>
+    </div>
+
+  </div>
+</div>
 
          </div>
 
@@ -265,7 +288,8 @@ if (array_key_exists("id", $_SESSION)) {
 
     <script type="text/javascript">
         $(document).ready(function () {
-            handleWindowLeaving() ;
+           // document.documentElement.webkitRequestFullScreen(); 
+            
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
@@ -294,20 +318,23 @@ if (array_key_exists("id", $_SESSION)) {
 };
 
     $("#getdetails").click(function(){
+        handleWindowLeaving();
+
         var res = $("#cipher").val().split(":;,HARSH;;;");
         if(res[1]!=null){
         var finaldetails=res[1].replace(/ /g,"+");
          $.ajax({
             type: "POST",
             url: 'decryptmiddle.php',
-            
             data: {sampleno:res[0],details:finaldetails},
               success:function(data){
+                  //alert(data);
                   $("#getdetails").attr('disabled','disabled');
+                  $("#cipher").attr('disabled','disabled');
                   var returndetails = data.split(";");
                   //alert(returndetails);
-                  $("#modal_sample").text(returndetails[0]);
-                  $("#modal_batch").text(returndetails[1]);
+                $("#modal_sample").text(returndetails[0]);
+                 $("#modal_batch").text(returndetails[1]);
                 $("#modal_place").text(returndetails[2]);
                 $("#modal_type").text(returndetails[3]);
                 $("#modal_agency").text(returndetails[4]);
@@ -330,9 +357,33 @@ if (array_key_exists("id", $_SESSION)) {
             $("#agency").val($("#modal_agency").text());
             $("#remarks").val($("#remarks").val().toUpperCase());
             $("#decrypt_id").val(<?=$decryptno?>);
+            
+            var batch=$("#batch").val();
+            var sample=$("#sample").val();
+            var place=$("#place").val();
+            var type=$("#type").val();
+            var agency=$("#agency").val();
+            var remarks=$("#remarks").val();
+            var decryptid=$("#decrypt_id").val();
+            var radio=$("input[name=optradio]:checked").val();
+            //alert(radio);
+
             if($("#remarks").val()!="")
-                $("#formmain").submit();
-        })
+                { 
+                    $.ajax({
+            type: "POST",
+            url: 'thanks.php',
+            
+            data: {decrypt_id:decryptid,batch:batch,sample:sample,place:place,remarks:remarks,optradio:radio,agency:agency,type:type},
+              success:function(data){
+                  //$(#formmain).reset();
+                  $(window).unbind('beforeunload');
+setTimeout(location . reload . bind(location), 4000);
+
+                 }
+          })
+          }
+        });
 
     </script>
 </body>

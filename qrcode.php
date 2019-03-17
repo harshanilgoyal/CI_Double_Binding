@@ -1,3 +1,8 @@
+
+  <head>
+  <script src="/pace/pace.js"></script>
+  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
+  </head>
 <?php 
 // Include the QRCode generator library
 require_once __DIR__ . '/vendor/autoload.php';

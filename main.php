@@ -1,6 +1,12 @@
+
+  <head>
+  <script src="/pace/pace.js"></script>
+  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
+  </head>
 <?php
 session_start();
 require_once __DIR__ . '/vendor/autoload.php';
+include './databaseconnection/dbconfig.php';
 
 use Parsehub\Parsehub;
 error_reporting(0);
@@ -13,6 +19,50 @@ if (array_key_exists("id", $_COOKIE)) {
   }
  
  if (array_key_exists("id",$_SESSION)  ){
+        $query = 'select MAX(id) from decrypt';
+        $query1 = 'select MAX(id) from encrypt';
+
+        $result = mysqli_query($link, $query);
+        $result1 = mysqli_query($link, $query1);
+          $row = mysqli_fetch_array($result);
+
+          $row1 = mysqli_fetch_array($result1);
+      
+      if(isset($row1))
+          {$encryptno=$row1[0];}
+      else{
+      $encryptno = 0;  
+      }    
+          
+if (isset($row)) {$decryptno = $row[0];
+} else {
+    $decryptno = 0;
+}
+
+$query = "SELECT COUNT(*) as count FROM decrypt where result = 'positive'";
+$query1 = "SELECT COUNT(*) as count FROM decrypt where result = 'negative'";
+$result = mysqli_query($link, $query);
+$result1 = mysqli_query($link, $query1);
+$row = mysqli_fetch_array($result);
+$row1 = mysqli_fetch_array($result1);
+if($decryptno!=0){
+  $positive=$row[0];
+  $negative = $row1[0];
+
+}
+$userid=$_SESSION['id'];
+$query1 = "SELECT count FROM users where user_id='$userid'";
+$result1 = mysqli_query($link, $query1);
+$row1 = mysqli_fetch_array($result1);
+$count=$row1[0]+1;
+
+$query = "UPDATE users SET count='$count' WHERE user_id='$userid'";
+
+mysqli_query($link, $query);
+
+
+
+
  }
  else {
      header("Location:./login/login.php");
@@ -138,7 +188,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
               <div class="wrapper count-title d-flex">
                 <div class="icon"><i class="fa fa-tasks" aria-hidden="true"></i></div>
                 <div class="name"><strong class="text-uppercase">Total Encryptions</strong>
-                  <div class="count-number" align=center style="color:#93716b">25</div>
+                  <div class="count-number" align=center style="color:#93716b"><?=$encryptno?></div>
                 </div>
               </div>
             </div>
@@ -147,7 +197,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
               <div class="wrapper count-title d-flex">
                 <div class="icon"><i class="fa fa-database" aria-hidden="true" ></i></div>
                 <div class="name"><strong class="text-uppercase">Total Decryptions</strong>
-                  <div class="count-number" align=center style="color:#93716b">400</div>
+                  <div class="count-number" align=center style="color:#93716b"><?=$decryptno?></div>
                 </div>
               </div>
             </div>
@@ -155,8 +205,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
             <div class="col-xl-3 col-md-4 col-6">
               <div class="wrapper count-title d-flex">
                 <div class="icon"><i class="fa fa-check-circle" aria-hidden="true"></i></div>
-                <div class="name"><strong class="text-uppercase">No Of Good Grade Coal</strong>
-                  <div class="count-number" align=center style="color:#93716b">342</div>
+                <div class="name"><strong class="text-uppercase">No Of Positive Reports</strong>
+                  <div class="count-number" align=center style="color:#93716b"><?=$positive?></div>
                 </div>
               </div>
             </div>
@@ -164,8 +214,8 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
             <div class="col-xl-3 col-md-4 col-6">
               <div class="wrapper count-title d-flex">
                 <div class="icon"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
-                <div class="name"><strong class="text-uppercase">No Of Bad Grade Coal</strong>
-                  <div class="count-number" align=center style="color:#93716b">123</div>
+                <div class="name"><strong class="text-uppercase">No Of Negative Reports</strong>
+                  <div class="count-number" align=center style="color:#93716b"><?=$negative?></div>
                 </div>
               </div>
             </div>
@@ -199,7 +249,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
               <!-- Income-->
               <div class="card income text-center">
                 <div class="icon"><i class="fas fa-sign-in-alt"></i></div>
-                <div class="number" id="visits"></div><strong class="text-primary">Your Total Visits</strong>
+                <div class="number" id="visits"><?=$count?></div><strong class="text-primary">Your Total Visits</strong>
                 <p></p>
               </div>
             </div>
@@ -208,7 +258,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
       </section>
 
   <div style="margin-bottom:0px;height:50px;padding:30px;" align=center >
-         <h3 class="heading-large">Recent Coal News</h3> 
+         <h3 class="heading-large">Recent News About Coal</h3> 
   </div>    
 
   <!-- Info Block-01 -->
@@ -330,6 +380,7 @@ $run_obj=$parsehub->runProject("tHJAUbkAxKL0",  $options);
 
     <script type="text/javascript">
         $(document).ready(function () {
+          //document . documentElement . webkitRequestFullScreen();
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });

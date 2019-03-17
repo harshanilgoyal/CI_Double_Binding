@@ -1,3 +1,8 @@
+
+  <head>
+  <script src="/pace/pace.js"></script>
+  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
+  </head>
 <?php
 /*
 $query = 'select MAX(id) from encrypt';
@@ -39,7 +44,7 @@ $sampleno=base64_decode($sample);
 $cipher = new Crypt_AES();
 $cipher->setKey('abcdefghijklmnop');
 $finalsampleno=$cipher->decrypt($sampleno);
-//echo $finalsampleno;
+//$finalsampleno;
 
 $query="select privatekey from encrypt where id ='$finalsampleno'";
 if ($result=mysqli_query($link, $query)) {
@@ -55,7 +60,7 @@ if ($result=mysqli_query($link, $query)) {
 } else {
     echo "Error: " . $query . "<br>" . mysqli_error($link);
 }
-}
+
 
 if (array_key_exists("details", $_POST)) {
   // echo $_POST["details"];
@@ -74,5 +79,5 @@ if (array_key_exists("details", $_POST)) {
     //$rsa->loadKey($publickey);
     $plaindata = $rsa2->decrypt($details);
     echo $finalsampleno.";".$plaindata;
-}
+}}
 ?>
