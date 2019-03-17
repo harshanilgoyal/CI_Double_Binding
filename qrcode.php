@@ -8,9 +8,9 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 
 
-
+if(isset($_GET['text'])){
 // Create a basic QR code
-$qrCode = new QrCode('Hi this is me harsdasasdssssssssssssssssssssasdh');
+$qrCode = new QrCode($_GET['text']);
 $qrCode->setSize(300);
 
 // Set advanced options
@@ -36,6 +36,6 @@ $qrCode->writeFile(__DIR__ . '/qrcode.png');
 
 // Create a response object
 //$response = new QrCodeResponse($qrCode);
-
+}
 
 ?>

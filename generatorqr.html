@@ -1,50 +1,3 @@
-<?php
-session_start();
-include './databaseconnection/dbconfig.php';
-
-if (array_key_exists("id", $_COOKIE)) {
-    $_SESSION['id'] = $_COOKIE['id'];
-    $_SESSION['username'] = $_COOKIE['username'];
-    $_SESSION['name'] = $_COOKIE['name'];
-    $_SESSION['des'] = $_COOKIE['des'];
-}
-
-if (array_key_exists("id", $_SESSION)) {
-
-    $batch=$_POST['batch'];
-    $place=$_POST['place'];
-    $type=$_POST['type'];
-    $agency=$_POST['agency'];
-    $sampleno = $_POST['sampleno'];
-
-} else {
-    header("Location:./login/login.php");
-}
-
-set_include_path('./vendor/rsa');
-include './vendor/rsa/Crypt/RSA.php';
-
-$rsa = new Crypt_RSA();
-
-extract($rsa->createKey());
-$private = $privatekey;
-$public = $publickey;
-$keyvalue="absqwewqhlkxzcnbbmcxzghjdas";
-$query="INSERT INTO encrypt (privatekey) values (AES_ENCRYPT('$private','$keyvalue'))";
-if (mysqli_query($link, $query)) {
-    //echo "New record created successfully";
-} else {
-    //echo "Error: " . $query . "<br>" . mysqli_error($link);
-}
-$rsa->loadKey($public); // public key
-$plaintext =$batch.";".$place.";".$type.";".$agency.";";
-$ciphertext = $rsa->encrypt($plaintext);
-$finalciphertext=$sampleno.":;,;;;".$ciphertext ;
-
-
-//include './generatorqr.html';
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -167,7 +120,7 @@ $finalciphertext=$sampleno.":;,;;;".$ciphertext ;
                         <p style="color:red">Click on the Qrcode to download<p>
                                 <a href="qrcode.png" download>
                                     <img style="width:30%;padding:10px;margin:10px;border-color:white"
-                                        class="card-img-top" src="qrcode.php?text=<?=$finalciphertext?>" alt="Card image cap">
+                                        class="card-img-top" src="qrcode.php" alt="Card image cap">
                                 </a>
                     </div>
 

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include './databaseconnection/dbconfig.php';
 
 
 if (array_key_exists("id", $_COOKIE)) {
@@ -10,9 +11,14 @@ if (array_key_exists("id", $_COOKIE)) {
 }
 
 if (array_key_exists("id", $_SESSION)) {
+$query='select MAX(id) from encrypt';
+$result=mysqli_query($link, $query);
+$row = mysqli_fetch_array($result);
+$sampleno=$row[0]+1;
 } else {
     header("Location:./login/login.php");
 }
+
 
 ?>
 
@@ -114,7 +120,8 @@ if (array_key_exists("id", $_SESSION)) {
             <div class="col-lg">
               <div class="card" style="background:#ffedba;border-color:brown;color:black">
                                     <div class="card-header d-flex ">
-                                        <h4><i class="fas fa-pen-fancy"></i> Sample Number : 1</h4>
+                                        <h4><i class="fas fa-pen-fancy"></i> Sample Number : <?php echo $sampleno ?>
+</h4>
                                     </div>
                     <form action="generateqr.php" method="post" id="formmain">
                    
@@ -155,6 +162,7 @@ if (array_key_exists("id", $_SESSION)) {
                                <div class="input-group">
                                   
                                   <input id="agency" name="agency" onchange="change()" required placeholder="Eg-'abc Coal Lab'" class="form-control"  value="" type="text"/>
+                                  <input type='hidden' value=<?=$sampleno ?> name="sampleno">
                                </div>
                             </div>
                         </div> 
