@@ -1,8 +1,5 @@
 
-  <head>
-  <script src="/pace/pace.js"></script>
-  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
-  </head>
+  
 <?php
 session_start();
 include './databaseconnection/dbconfig.php';

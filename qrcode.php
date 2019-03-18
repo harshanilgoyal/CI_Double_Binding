@@ -1,8 +1,3 @@
-
-  <head>
-  <script src="/pace/pace.js"></script>
-  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
-  </head>
 <?php 
 // Include the QRCode generator library
 require_once __DIR__ . '/vendor/autoload.php';
@@ -14,6 +9,7 @@ use Endroid\QrCode\Response\QrCodeResponse;
 
 
 if(isset($_GET['text'])){
+    if($_GET['text']!=""){
 // Create a basic QR code
 $qrCode = new QrCode($_GET['text']);
 $qrCode->setSize(300);
@@ -38,9 +34,8 @@ echo $qrCode->writeString();
 
 // Save it to a file
 $qrCode->writeFile(__DIR__ . '/qrcode.png');
-
+    }
 // Create a response object
 //$response = new QrCodeResponse($qrCode);
 }
-
 ?>

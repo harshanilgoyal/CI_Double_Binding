@@ -1,8 +1,4 @@
 
-  <head>
-  <script src="/pace/pace.js"></script>
-  <link href="/pace/themes/pace-theme-flat-top.css" rel="stylesheet" />
-  </head>
 <?php
 session_start();
 include './databaseconnection/dbconfig.php';
@@ -32,7 +28,6 @@ include 'Crypt/AES.php';
 include 'Crypt/Random.php';
 
 $rsa = new Crypt_RSA();
-
 extract($rsa->createKey());
 $private = $privatekey;
 $public = $publickey;
@@ -52,8 +47,7 @@ $samplebase64=base64_encode($samplenocipher);
 //echo $ciphertext;
 
 $detailsbase64=base64_encode($ciphertext);
-echo $detailsbase64;
-$finalciphertext=$samplebase64.":;,HARSH;;;".$detailsbase64;
+//echo $detailsbase64;
 //echo $finalciphertext;
 //include './generatorqr.html';
 
@@ -62,9 +56,10 @@ $privatebase64=base64_encode($privatecipher);
 
 $query = "INSERT INTO encrypt (id,privatekey) values ('$sampleno','$privatebase64')";
 if (mysqli_query($link, $query)) {
-    echo "New record created successfully";
+    $finalciphertext = $samplebase64 . ":;,HARSH;;;" . $detailsbase64;
+    //echo "New record created successfully";
 } else {
-   echo "Error: " . $query . "<br>" . mysqli_error($link);
+  //     echo "Error: " . $query . "<br>" . mysqli_error($link);
 }
 
 
@@ -192,7 +187,7 @@ if (mysqli_query($link, $query)) {
                         <p style="color:red">Click on the Qrcode to download<p>
                                 <a href="qrcode.png" download>
                                     <img style="width:30%;padding:10px;margin:10px;border-color:white"
-                                        class="card-img-top" src="qrcode.php?text=<?=$finalciphertext?>" alt="Card image cap">
+                                        class="card-img-top" src="qrcode.php?text=<?php if(isset($finalciphertext)){echo$finalciphertext;}?>" alt="Already Encrypted,Please Make A New Encrypion">
                                 </a>
                     </div>
 
