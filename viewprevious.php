@@ -14,6 +14,7 @@ if (array_key_exists("id", $_SESSION)) {
    
 } else {
     header("Location:./login/login.php");
+
 }
 
 ?>
@@ -115,19 +116,44 @@ if (array_key_exists("id", $_SESSION)) {
           <div class="row">
             <div class="col-lg">
               <div class="card" style="background:#ffedba;border-color:brown;color:black">
-                                    <div class="card-header d-flex ">
-                                        <h4><i class="fas fa-pen-fancy"></i> Sample Number :1
-</h4>
-                                    </div>
+                                    
                    
-                        <div class="card-body">
-                                              
-                                                
-                </div>
+                                           
+                          <div class="card-header d-flex ">
+
+                    <div class="col" style="float:left">
+    <h4><i class="fas fa-search"></i> Search According To :</h4>
+    </div>
+    <div class="col">
+    <div class="form-group">
+ 
+  <select class="form-control" onchange="selectacoordingto()"  id="sel1">
+    <option id="default1">select</option>
+    <option id="batch" value="batch">Batch</option>
+    <option id="place" value="place">Place Of Origin</option>
+    <option id="type" value="type">Type</option>
+    <option id="agency " value="agency">Sampling Agency</option>
+    <option id="result" value="result">Results</option>
+  </select>
+</div></div>
 
 
   </div>
-  <hr>
+
+         <div id="enterkeyword" style="display:none;opacity:0">
+                          <div class="card-header d-flex" >
+
+                    <div class="col" style="float:left;padding:7px">
+        <h4 ><i class="fas fa-pen"></i> <span id="enter_keyword"></span></h4>
+        </div>
+        <div class="col">
+        <input id="keyword" onkeyup="keyword()" required placeholder="" class="form-control"  value="" type="text"/></div>
+       
+        </div>
+        </div>
+                        
+ 
+    
   </div>
   </div>
 
@@ -159,7 +185,27 @@ if (array_key_exists("id", $_SESSION)) {
 
        
    
+        function selectacoordingto() {
+           $("#default1").remove(); 
+           $("#enterkeyword").show();   
+           $("#enterkeyword").animate({opacity:1},500);
+           $("#enter_keyword").text("Enter "+$("#sel1 option:selected").text()+"  :")
+           //alert($("#sel1 option:selected").text());
 
+        }
+
+        function keyword(){
+            var according=$("#sel1 option:selected").val();
+            var keyword=$("#keyword").text();
+             $.ajax({
+            type: "POST",
+            url: 'getdata.php',
+            data: {according:according,keyword:keyword},
+              success:function(data){
+                 
+          })
+
+        }
 
     </script>
 </body>
