@@ -207,11 +207,11 @@ if (array_key_exists("id", $_SESSION)) {
                             <div class="col-sm-5 inputGroupContainer">
                                <div class="input-group">
                                 <div class="radio" style="padding-right:10px">
-                                <label><input type="radio" name="optradio" value="positive" checked>  Positive</label>
+                                <label><input type="radio" name="optradio" value="POSITIVE" checked>  Positive</label>
                                 </div>
                                 
                                 <div class="radio">
-                                <label><input type="radio" name="optradio" value="negative">  Negative</label>
+                                <label><input type="radio" name="optradio" value="NEGATIVE">  Negative</label>
                                 </div>
                                </div>
                             </div>

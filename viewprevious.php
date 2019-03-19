@@ -158,10 +158,17 @@ if (array_key_exists("id", $_SESSION)) {
   </div>
 
 </section>
+<div id="total" style="display:none;margin-top:20px">
+<div class="card" style="background:#c8fcc7">
+  <div class="card-body" >
+    <h4 class="card-title"><i class="fas fa-search"></i> Total Results Found Are : <span id="resultsno"></span> </h4>
+    </div>
+</div>
+</div>
+<div id="cards">
 
-
-
-         </div>
+</div>
+   </div>
 
 
     <!-- Popper.JS -->
@@ -191,19 +198,50 @@ if (array_key_exists("id", $_SESSION)) {
            $("#enterkeyword").animate({opacity:1},500);
            $("#enter_keyword").text("Enter "+$("#sel1 option:selected").text()+"  :")
            //alert($("#sel1 option:selected").text());
-
+          keyword();
         }
 
         function keyword(){
+          $("#resultsno").text("");
+                 
+          $("#cards").html("");
+          var keyword=$("#keyword").val().toUpperCase();
+          if(keyword!="" && keyword!=null){
             var according=$("#sel1 option:selected").val();
-            var keyword=$("#keyword").text();
              $.ajax({
             type: "POST",
             url: 'getdata.php',
             data: {according:according,keyword:keyword},
               success:function(data){
-                 
+                 $("#total").show();
+                 var row1=data.split("HARSH");
+                 $("#resultsno").text(row1.length-1);
+                 for(var i=0;i<row1.length-1;i++){
+                 var r=row1[i];
+                 var rowdata=r.split(":;");
+                $("#cards").append("<div class='card' style='margin-top:10px'><div class='card-body'><h4 class='card-title' id='row_no'>Card title</h4><h6 class='card-title' id='decrypt_no'>Card title</h6><h6 class='card-text' id='sample_no' >Some example text. Some example text.</h6><h6 class='card-text' id='batch_no'>Some example text. Some example text.</h6>    <h6 class='card-text' id='place_no'>Some example text. Some example text.</h6>    <h6 class='card-text' id='type_no'>Some example text. Some example text.</h6><h6 class='card-text' id='agency_no'>Some example text. Some example text.</h6> <h6 class='card-text' id='result_no'>Some example text. Some example text.</h6><h6 class='card-text' id='remarks_no'>Some example text. Some example text.</h6> </div></div>");
+                $('#row_no').attr('id',"row_no"+i);
+                 $('#decrypt_no').attr('id',"decrypt_no"+i);
+                 $('#sample_no').attr('id',"sample_no"+i);
+                 $('#batch_no').attr('id',"batch_no"+i);
+                 $('#place_no').attr('id',"place_no"+i);
+                 $('#type_no').attr('id',"type_no"+i);
+                 $('#agency_no').attr('id',"agency_no"+i);
+                 $('#result_no').attr('id',"result_no"+i);
+                 $('#remarks_no').attr('id',"remarks_no"+i);
+                 $('#row_no'+i).text("Result No :    "+(i+1));
+                  $('#decrypt_no'+i).text("DECRYPT ID :    "+rowdata[0]);
+                  $('#sample_no'+i).text("SAMPLE NO :    "+rowdata[1]);
+                  $('#batch_no'+i).text("BATCH NO :    "+rowdata[2]);
+                  $('#place_no'+i).text("PLACE :    "+rowdata[3]);
+                  $('#type_no'+i).text("TYPE :    "+rowdata[4]);
+                  $('#agency_no'+i).text("SAMPLING AGENCY :    "+rowdata[5]);
+                  $('#result_no'+i).text("RESULT :    "+rowdata[6]);
+                  $('#remarks_no'+i).text("REMARKS :    "+rowdata[7]);
+                  }
+              }
           })
+          }
 
         }
 
