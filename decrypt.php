@@ -374,7 +374,7 @@ if (array_key_exists("id", $_SESSION)) {
             data: {decrypt_id:decryptid,batch:batch,sample:sample,place:place,remarks:remarks,optradio:radio,agency:agency,type:type},
               success:function(data){
                   //$(#formmain).reset();
-                  alert(data);
+                  //alert(data);
                   $(window).unbind('beforeunload');
 setTimeout(location . reload . bind(location), 4000);
 
