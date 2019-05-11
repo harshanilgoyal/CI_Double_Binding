@@ -95,7 +95,7 @@ if (array_key_exists("id", $_SESSION)) {
         </div>
         <img id="logo" src="login\img\logo.png" style="width:120px;height:100px;background:white;padding:5px" class="rounded float-left" alt="LOGO" >
         <div class="col-md-4">
-            <h1>MINISTRY OF COAL<small>DOUBLE BINDING OF COAL</small></h1>
+            <h1>MINISTRY OF COAL<small>DOUBLE BLINDING OF COAL</small></h1>
           </div>
             <div style="position:relative;right:10px;top:0px;color:white" id="imagetopbar">
               <a href="#" class="nav-link pr-0" > <?php echo $_SESSION['name'] ?><img class="img-fluid rounded-circle" style="height: 100px;margin-left: 18px;width: 100px;" src="dp/<?php echo $_SESSION['id'] ?>

@@ -50,7 +50,7 @@ if (array_key_exists('submit', $_POST)) {
   <div class="topbar" >
   <div class="container" >
         <img id="logo" src="img\logo.png" style="width:120px;height:100px" class="rounded float-left" alt="LOGO" >
-        <h1 id="headingproposal" class="h1" >DOUBLE BINDING OF COAL</h1>
+        <h1 id="headingproposal" class="h1" >DOUBLE BLINDING OF COAL</h1>
   </div>
   </div>
 
